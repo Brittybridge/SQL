@@ -1,0 +1,38 @@
+
+#Use a SELECT statement to order the items by price.
+SELECT *
+FROM superstore
+ORDER BY price;
+
+#Show a statistic about the item prices.
+SELECT item_name,SUM(stock_quantity),ROUND(AVG(stock_quantity)),MAX(average_rating)
+FROM superstore;
+
+#Show a statistic about the price for items in the category of "Kitchen Supplies". 
+SELECT Item_name, category, MAX(price),AVG(price)
+FROM superstore
+WHERE category = 'Kitchen Supplies';
+
+SELECT Item_name, category, average_rating, MAX(price),MIN(price)
+FROM superstore
+WHERE category = 'Kitchen Supplies'
+GROUP BY item_name
+ORDER BY average_rating DESC;
+
+
+ ```Items with the best ratings```
+SELECT Item_name,category, average_rating
+FROM superstore
+ORDER BY average_rating DESC;
+
+```items with the most stock quantity in the store```
+SELECT *
+FROM superstore
+WHERE stock_quantity>=50
+ORDER BY stock_quantity DESC;
+
+```Most expensive itemS in the store```
+SELECT Item_name,category,price,average_rating
+FROM superstore
+WHERE price >= 100
+ORDER BY average_rating DESC;
