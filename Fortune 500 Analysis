@@ -57,3 +57,76 @@ VALUES
     ('Company II', 'Telecommunications', 110.5, 2000, 1, 21, 12, 4.9),
     ('Company JJ', 'Manufacturing', 370.0, 3100, 1, 20, 12, 7.6),
     ('Company KK', 'Healthcare', 150.2, 3400, 0, 16, 8, 5.3);
+SELECT *
+FROM fortune_companies;
+
+
+```What is the total, average, maximum and minimum revenue of the  Fortune 500 companies```
+SELECT SUM(revenue) AS Total_revenue, avg(revenue) AS Average_revenue, MAX(revenue),
+MIN(revenue)
+FROM fortune_companies;
+
+```Companies with the most employees in the Energy OR Technology```
+SELECT *
+FROM fortune_companies
+WHERE employees>= 10000
+AND Industry IN ('Energy', 'Technology');
+
+
+``` Company  with the most employees```
+SELECT company_name, industry, MAX(employees)
+FROM fortune_companies;
+
+``` Company  with the least employees``
+SELECT company_name, industry, MIN(employees)
+FROM fortune_companies;
+
+  ```Companies with the best benefits```
+SELECT *
+FROM fortune_companies
+WHERE healthcare_benefits = 1
+AND paid_time_off_days >=20
+AND maternity_leave_weeks >=12
+ORDER BY avg_employee_tenure desc;
+
+```Number of Companies in each industry```
+SELECT industry, COUNT(*)
+FROM fortune_companies
+GROUP BY industry
+ORDER BY COUNT(*);
+
+```Best company in each industry```
+SELECT *
+FROM fortune_companies
+WHERE healthcare_benefits = 1
+AND paid_time_off_days >=20
+AND maternity_leave_weeks >=12
+AND avg_employee_tenure >=6
+ORDER BY avg_employee_tenure desc;
+
+
+``Which industry has more than one best company in terms of benefits```
+SELECT industry,COUNT(industry)
+FROM fortune_companies
+WHERE healthcare_benefits = 1
+AND paid_time_off_days >=20
+AND maternity_leave_weeks >=12
+AND avg_employee_tenure >=6
+GROUP BY industry
+HAVING COUNT(industry)>=1
+ORDER BY COUNT(industry) desc;
+
+``` Rating companies based on their AVG_EMPLOYEE_TENURE```
+SELECT company_name,industry,
+CASE WHEN avg_employee_tenure >7 THEN 'Excellent Company'
+     WHEN avg_employee_tenure >=6 THEN 'Good Company'
+     WHEN avg_employee_tenure >=5 THEN 'Average Company' 
+ ELSE 'Below Average' 
+ END AS Ratings
+ FROM fortune_companies
+ORDER BY Ratings DESC;
+
+
+
+
+
